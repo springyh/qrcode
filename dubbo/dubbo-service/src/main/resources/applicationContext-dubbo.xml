@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://code.alibabatech.com/schema/dubbo 
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 1. 应用程序名称 -->
+	<dubbo:application name="dubbo-service" />
+	<!-- 2.注册中心地址 -->
+	<dubbo:registry protocol="zookeeper" address="192.168.0.208:2181"></dubbo:registry>
+	<!-- 3.当前服务访问端口及协议 -->
+	<dubbo:protocol name="dubbo" port="20880"></dubbo:protocol>
+	<!-- 全局配置dubbo请求超时问题 -->
+	<!-- 也可以在dubbo:service后面使用timeout=60000来解决 -->
+	<dubbo:provider delay="-1" timeout="60000" retries="0" />
+	<!-- 4.扫描duubo注解,不能使用,替换成配置文件方式来实现.否则和AOP有冲突.最根本的原因就是dubbo@Service无效. -->
+	<dubbo:annotation package="cn.yh.dubbox.service.impl"/>
+</beans>
